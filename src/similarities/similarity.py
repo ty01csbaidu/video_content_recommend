@@ -29,8 +29,6 @@ class Similarity(object):
 	"""
 	Base class for similarities
 	"""
-	def __init__(self, num_features):
-		self.num_features = num_features
 
 	def compute(self, x, y):
 		raise NotImplementedError("not implement a abstract method")
@@ -38,8 +36,38 @@ class Similarity(object):
 
 class DescSimilarity(Similarity):
 	"""
-	video description similarity using word2vec or lda
+	video description similarity using word2vec or docsim or lda
+	"""
+	def load_model(self, model_out):
+		self.model = Word2vec.load_word2vec_format(model_out, binary=True)
+
+	def compute(self, x, y):
+		"""
+		1. average over all words vector in a document, then compute cosin similarity
+		2. using docsim directly
+		3. using topic model for documents similarity
+		:param x:
+		:param y:
+		:return:
+		"""
+		score = self.model.n_similarity(x, y)
+
+
+
+class TitleSimilarity(Similarity):
+	"""
+	video title similarity
 	"""
 
+
+class TagSimilarity(Similarity):
+	"""
+	video tag similarity
+	"""
+
+class StarSimilarity(Similarity):
+	"""
+	video stars similarity
+	"""
 ## vim: set ts=2 sw=2: #
 

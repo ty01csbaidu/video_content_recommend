@@ -21,6 +21,8 @@ import itertools
 import numpy
 
 from gensim.models import Word2vec
+from sklearn.feature_extraction.text import	CountVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 
 logger = logging.getLogger('similarities.similarity')
 
@@ -30,14 +32,33 @@ class Similarity(object):
 	Base class for similarities
 	"""
 
-	def n_gram_similarity(self, x, y, n=1):
+	def n_gram_similarity(self, vectorizer, x, y):
 		"""
-		n_gram vector similarity for documents
+		n_gram similarity using sklearn
+		:param vectorizer:
 		:param x:
 		:param y:
 		:return:
 		"""
+		x_vector = vectorizer.transform(x)
+		y_vector = vectorizer.transform(y)
+		score = cosine_similarity(x_vector,y_vector)
+		return score
 
+	def set_cosin_similarity(self, x, y):
+		"""
+		s = intersection(x,y)/union(x,y)
+		:param x:
+		:param y:
+		:return:
+		"""
+		if len(x) == 0 or len(y) == 0:
+			return 0
+		else:
+			intersection = x & y
+			union = x | y
+			score = float(len(intersection)) / len(union)
+			return score
 
 	def compute(self, x, y, model=None):
 		raise NotImplementedError("not implement a abstract method")
@@ -59,7 +80,6 @@ class DescSimilarity(Similarity):
 		"""
 		score = word2vec_model.n_similarity(x, y)
 		return score
-
 
 
 class TitleSimilarity(Similarity):
@@ -87,8 +107,11 @@ class TagSimilarity(Similarity):
 		self.filtered_tags = set(['剧情','偶像','全部剧集'])
 
 	def compute(self, x, y):
-		score = self.n_gram_simialrity(x, y, 1)
+		x = x - self.filtered_tags
+		y = y - self.filtered_tags
+		score = self.set_cosin_similarity(x, y)
 		return score
+
 
 class StarSimilarity(Similarity):
 	"""
@@ -98,7 +121,10 @@ class StarSimilarity(Similarity):
 		self.filtered_stars = set(['暂无','无'])
 
 	def compute(self, x, y):
-		score = self.n_gram_similarity(x, y, 1)
+		x = x - self.filtered_stars
+		y = y - self.filtered_stars
+		score = self.set_cosin_similarity(x, y)
 		return score
+
 ## vim: set ts=2 sw=2: #
 

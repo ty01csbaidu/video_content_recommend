@@ -18,7 +18,7 @@
 import logging
 import itertools
 
-import numpy
+import numpy as np
 
 from gensim.models import Word2vec
 from sklearn.feature_extraction.text import	CountVectorizer

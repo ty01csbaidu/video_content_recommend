@@ -13,8 +13,8 @@ from gensim.corpora import WikiCorpus
 import jieba
 
 
-
 class MySentences(object):
+
 	def __init__(self, dirname):
 		self.dirname = dirname
 
@@ -22,7 +22,6 @@ class MySentences(object):
 		for fname in os.listdir(self.dirname):
 			for line in open(os.path.join(self.dirname, fname)):
 				yield jieba.cut(line)
-
 
 
 class Learner(object):
@@ -50,7 +49,10 @@ logger = logging.getLogger('models.wikilearner')
 
 class WikiLearner(Learner):
 
-	def __init__(self, zhwiki_out, simpleWiki_out, corpus_path):
+	def __init__(self, model_out, size, window, alpha, worker, sg, hs,
+							 negative, min_count, zhwiki_out, simpleWiki_out, corpus_path):
+		super(WikiLearner, self).__init__(model_out, size, window, alpha, worker, sg, hs,
+																			negative, min_count)
 		self.zhwiki_out = zhwiki_out
 		self.simpleWiki_out = simpleWiki_out
 		self.corpus_path = corpus_path
@@ -92,3 +94,24 @@ class WikiLearner(Learner):
 										 min_count = self.min_count)
 
 		model.save_word2vec_format(self.model_out, binary=True)
+
+
+if __name__ == '__main__':
+	wiki_out = sys.argv[1]
+	simpleWiki_out = sys.argv[2]
+	corpus_path = sys.argv[3]
+	model_out = sys.argv[4]
+	size = 100
+	window = 5
+	alpha = 0.025
+	workers = 4
+	sg = 0
+	hs = 1
+	negative = 0
+	min_count = 5
+
+	wiki_learner = WikiLearner(model_out, size, window, alpha, workers, sg, hs, negative,
+														 min_count, wiki_out, simpleWiki_out, corpus_path)
+	wiki_learner.get_corpus()
+	sentences = wiki_learner.token()
+	wiki_learner.train(sentences)

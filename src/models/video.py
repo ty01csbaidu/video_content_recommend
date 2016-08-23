@@ -71,7 +71,6 @@ class VideoIterable(object):
 				yield video.read()
 
 
-
 def video_token(vid_file, vid_out, corpus_out):
 	with open(corpus_out, 'w') as c_o:
 		with open(vid_out, 'w') as v_o:
@@ -83,6 +82,7 @@ def video_token(vid_file, vid_out, corpus_out):
 						name_seg_list = jieba.cut(name)
 						tokenized_name = ' '.join(name_seg_list)
 						fields[1] = tokenized_name
+						c_o.write(tokenized_name+'\n')
 
 					if len(fields) >= 5:
 						desc = fields[5].strip(' ')

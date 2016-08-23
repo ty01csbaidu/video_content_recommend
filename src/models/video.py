@@ -7,6 +7,8 @@
 
 
 import logging
+import jieba
+import sys
 
 
 logger = logging.getLogger('models.video')
@@ -41,7 +43,7 @@ class Video(object):
 
 		if len(fields) >= 5:
 			desc = fields[5].strip(' ').split(' ')
-			if len(desc) > 0 and not desc in filtered_set:
+			if len(desc) > 0 and desc not in filtered_set:
 				self.desc = desc
 
 		if len(fields) >= 6:
@@ -67,6 +69,36 @@ class VideoIterable(object):
 			for line in i_f:
 				video = Video(line)
 				yield video.read()
+
+
+
+def video_token(vid_file, vid_out, corpus_out):
+	with open(corpus_out, 'w') as c_o:
+		with open(vid_out, 'w') as v_o:
+			with open(vid_file, 'r') as v_f:
+				for line in v_f:
+					fields = line.strip('\t').split('\t')
+					if len(fields) >= 3:
+						name = fields[1].strip(' ')
+						name_seg_list = jieba.cut(name)
+						tokenized_name = ' '.join(name_seg_list)
+						fields[1] = tokenized_name
+
+					if len(fields) >= 5:
+						desc = fields[5].strip(' ')
+						desc_seg_list = jieba.cut(desc)
+						tokenized_desc = ' '.join(desc_seg_list)
+						c_o.write(tokenized_desc+'\n')
+						fields[5] = tokenized_desc
+
+					v_o.write('\t'.join(fields)+'\n')
+
+
+if __name__ == '__main__':
+	vid_file = sys.argv[1]
+	vid_out = sys.argv[2]
+	corpus_out = sys.argv[3]
+	video_token(vid_file, vid_out, corpus_out)
 
 
 

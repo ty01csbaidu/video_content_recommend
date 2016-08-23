@@ -65,7 +65,7 @@ class SimilarityMatrix(object):
 						if s_id in idx_dict:
 							s_vid = idx_dict[s_id]
 							ret_list.append(str(s_vid) + ':' + str(score))
-					m_o.write(str(vid) + '\t' + ','.join(ret_list))
+					m_o.write(str(vid) + '\t' + ','.join(ret_list) + '\n')
 
 
 

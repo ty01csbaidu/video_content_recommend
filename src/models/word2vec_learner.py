@@ -65,14 +65,14 @@ class WikiLearner(Learner):
 		"""
 		#os.system('wget https://dumps.wikimedia.org/zhwiki/latest/zhwiki-latest-pages-articles.xml.bz2')
 		wiki = WikiCorpus('zhwiki-latest-pages-articles.xml.bz2', lemmatize=False, dictionary={})
-		for text in wiki.get_texts():
-			self.zhwiki_out.write(" ".join(text) + "\n")
-			i = i + 1
-			if (i % 10000 == 0):
-				logger.info("Saved " + str(i) + " articles")
+		with open(self.zhwiki_out, 'w') as zhwiki_o:
+			for text in wiki.get_texts():
+				zhwiki_o.write(" ".join(text) + "\n")
+				i = i + 1
+				if (i % 10000 == 0):
+					logger.info("Saved " + str(i) + " articles")
 
-		self.zhwiki_out.close()
-		logger.info("Finished Saved " + str(i) + " articles")
+			logger.info("Finished Saved " + str(i) + " articles")
 
 		# translate to simple chinese
 		os.system('opencc -i ' + self.zhwiki_out + ' -o ' + os.path.join(self.corpus_path, self.simpleWiki_out) + ' -c zht2zhs.ini')

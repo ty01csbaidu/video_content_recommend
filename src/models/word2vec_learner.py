@@ -66,6 +66,7 @@ class WikiLearner(Learner):
 		#os.system('wget https://dumps.wikimedia.org/zhwiki/latest/zhwiki-latest-pages-articles.xml.bz2')
 		wiki = WikiCorpus('zhwiki-latest-pages-articles.xml.bz2', lemmatize=False, dictionary={})
 		with open(self.zhwiki_out, 'w') as zhwiki_o:
+			i = 0
 			for text in wiki.get_texts():
 				zhwiki_o.write(" ".join(text) + "\n")
 				i = i + 1

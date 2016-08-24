@@ -63,7 +63,7 @@ class WikiLearner(Learner):
 		translate to simple chinese
 		:return:
 		"""
-		os.system('wget https://dumps.wikimedia.org/zhwiki/latest/zhwiki-latest-pages-articles.xml.bz2')
+		#os.system('wget https://dumps.wikimedia.org/zhwiki/latest/zhwiki-latest-pages-articles.xml.bz2')
 		wiki = WikiCorpus('zhwiki-latest-pages-articles.xml.bz2', lemmatize=False, dictionary={})
 		for text in wiki.get_texts():
 			self.zhwiki_out.write(" ".join(text) + "\n")

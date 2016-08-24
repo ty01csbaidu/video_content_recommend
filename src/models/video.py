@@ -42,17 +42,17 @@ class Video(object):
 			self.cid = fields[2]
 
 		if len(fields) >= 5:
-			desc = fields[5].strip(' ').split(' ')
+			desc = fields[4].strip(' ').split(' ')
 			if len(desc) > 0 and desc not in filtered_set:
 				self.desc = desc
 
 		if len(fields) >= 6:
-			tags = fields[6].strip(' ').split(',')
+			tags = fields[5].strip(' ').split(',')
 			if len(tags) > 0:
 				self.tags = tags
 
 		if len(fields) >= 8:
-			stars = fields[8].strip(' ').split('|')
+			stars = fields[7].strip(' ').split('|')
 			if len(stars) > 0:
 				self.stars = stars
 
@@ -81,15 +81,15 @@ def video_token(vid_file, vid_out, corpus_out):
 						name = fields[1].strip(' ')
 						name_seg_list = jieba.cut(name)
 						tokenized_name = ' '.join(name_seg_list)
-						fields[1] = tokenized_name
-						c_o.write(tokenized_name+'\n')
+						fields[1] = tokenized_name.encode('utf-8')
+						#c_o.write((tokenized_name+'\n').encode('utf-8'))
 
 					if len(fields) >= 5:
-						desc = fields[5].strip(' ')
+						desc = fields[4].strip(' ')
 						desc_seg_list = jieba.cut(desc)
 						tokenized_desc = ' '.join(desc_seg_list)
-						c_o.write(tokenized_desc+'\n')
-						fields[5] = tokenized_desc
+						c_o.write((tokenized_desc+'\n').encode('utf-8'))
+						fields[4] = tokenized_desc.encode('utf-8')
 
 					v_o.write('\t'.join(fields)+'\n')
 

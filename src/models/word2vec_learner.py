@@ -21,7 +21,7 @@ class MySentences(object):
 	def __iter__(self):
 		for fname in os.listdir(self.dirname):
 			for line in open(os.path.join(self.dirname, fname)):
-				yield jieba.cut(line)
+				yield line.strip(' ').split(' ')
 
 
 class Learner(object):
@@ -78,7 +78,13 @@ class WikiLearner(Learner):
 		os.system('opencc -i ' + self.zhwiki_out + ' -o ' + os.path.join(self.corpus_path, self.simpleWiki_out) + ' -c zht2zhs.ini')
 
 		os.system('iconv -c -t utf-8 < ' + os.path.join(self.corpus_path, self.simpleWiki_out) + ' > ' + os.path.join(self.corpus_path, 'tmp'))
-		os.system('mv ' + os.path.join(self.corpus_path, 'tmp') + ' ' + os.path.join(self.corpus_path, self.simpleWiki_out))
+		#os.system('mv ' + os.path.join(self.corpus_path, 'tmp') + ' ' + os.path.join(self.corpus_path, self.simpleWiki_out))
+		os.system('cat /dev/null > ' + os.path.join(self.corpus_path, self.simpleWiki_out))
+		with open(os.path.join(self.corpus_path, self.simpleWiki_out), 'w') as wiki_token_out:
+			with open(os.path.join(self.corpus_path, 'tmp'), 'r') as wiki_in:
+				for line in wiki_in:
+					seg_list = jieba.cut(line)
+					wiki_token_out.write(' '.join(seg_list)+'\n')
 
 	def token(self):
 		"""

@@ -1,1 +1,5 @@
-./data
+data/
+*.sh
+*.bz2
+*log
+*.pyc

@@ -19,6 +19,7 @@ import logging
 import itertools
 
 import numpy as np
+from scipy.spatial.distance import cosine
 
 from gensim.models import Word2Vec
 from sklearn.feature_extraction.text import	CountVectorizer
@@ -82,9 +83,12 @@ class DescSimilarity(Similarity):
 		if x is not None and y is not None:
 			x = [item for item in x if item in word2vec_model.vocab]
 			y = [item for item in y if item in word2vec_model.vocab]
-			for item in x:
-				print word2vec_model.vocab[item]
-			score = word2vec_model.n_similarity(x, y)
+			x_array = np.asarray([word2vec_model[item] for item in x])
+			y_array = np.asarray([word2vec_model[item] for item in y])
+			x_mean = np.mean(x_array, axis=0)
+			y_mean = np.mean(y_array, axis=0)
+			score = cosine(x_mean, y_mean)
+			#score = word2vec_model.n_similarity(x, y)
 		return score
 
 
@@ -105,7 +109,12 @@ class TitleSimilarity(Similarity):
 		if x is not None and y is not None:
 			x = [item for item in x if item in word2vec_model.vocab]
 			y = [item for item in y if item in word2vec_model.vocab]
-			score = word2vec_model.n_similarity(x, y)
+			x_array = np.asarray([word2vec_model[item] for item in x])
+			y_array = np.asarray([word2vec_model[item] for item in y])
+			x_mean = np.mean(x_array, axis=0)
+			y_mean = np.mean(y_array, axis=0)
+			score = cosine(x_mean, y_mean)
+			#score = word2vec_model.n_similarity(x, y)
 		return score
 
 

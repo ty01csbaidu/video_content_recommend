@@ -88,6 +88,7 @@ class DescSimilarity(Similarity):
 			x_mean = np.mean(x_array, axis=0)
 			y_mean = np.mean(y_array, axis=0)
 			#print x_mean
+			print y
 			for item in y:
 				print item
 				print word2vec_model[item]

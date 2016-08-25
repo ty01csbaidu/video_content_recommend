@@ -50,12 +50,12 @@ class Video(object):
 		if len(fields) >= 6:
 			tags = fields[5].strip(' ').split(',')
 			if len(tags) > 0:
-				self.tags = tags
+				self.tags = set(tags)
 
 		if len(fields) >= 8:
 			stars = fields[7].strip(' ').split('|')
 			if len(stars) > 0:
-				self.stars = stars
+				self.stars = set(stars)
 
 		return self
 

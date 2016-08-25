@@ -42,7 +42,7 @@ class SimilarityMatrix(object):
 					desc_similarity.compute(fir_video.desc, sec_video.desc, self.word2vec_model)
 					title_similarity.compute(fir_video.name, sec_video.name, self.word2vec_model)
 					tag_similarity.compute(fir_video.tag, sec_video.tag)
-					star_similarity.compute(fir_video.star, sec_video.star)
+					star_similarity.compute(fir_video.stars, sec_video.stars)
 					linear_simialarity.set_similarity([desc_similarity, title_similarity, tag_similarity, star_similarity])
 					s = linear_simialarity.compute()
 					matrix_row.append((j, s))

@@ -7,7 +7,7 @@
 
 
 from similarity_matrix import SimilarityMatrix
-from src.models.video import Video, VideoIterable
+from src.models import video
 
 import sys
 from gensim.models import Word2vec

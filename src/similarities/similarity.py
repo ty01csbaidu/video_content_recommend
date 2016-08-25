@@ -20,7 +20,7 @@ import itertools
 
 import numpy as np
 
-from gensim.models import Word2vec
+from gensim.models import Word2Vec
 from sklearn.feature_extraction.text import	CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 

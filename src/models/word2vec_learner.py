@@ -77,18 +77,18 @@ class WikiLearner(Learner):
 		#	logger.info("Finished Saved " + str(i) + " articles")
 
 		## translate to simple chinese
-		os.system('opencc -i ' + self.zhwiki_out + ' -o ' + os.path.join(self.corpus_path,
-                  self.simpleWiki_out) + ' -c /data/dev/tangye/opencc-1.0.4/data/config/t2s.json')
+		#os.system('opencc -i ' + self.zhwiki_out + ' -o ' + os.path.join(self.corpus_path,
+                #  self.simpleWiki_out) + ' -c /data/dev/tangye/opencc-1.0.4/data/config/t2s.json')
 
-		os.system('iconv -c -t utf-8 < ' + os.path.join(self.corpus_path, self.simpleWiki_out) + ' > ' + os.path.join(self.corpus_path, 'tmp'))
-		#os.system('mv ' + os.path.join(self.corpus_path, 'tmp') + ' ' + os.path.join(self.corpus_path, self.simpleWiki_out))
-		os.system('cat /dev/null > ' + os.path.join(self.corpus_path, self.simpleWiki_out))
-		with open(os.path.join(self.corpus_path, self.simpleWiki_out), 'w') as wiki_token_out:
-			with open(os.path.join(self.corpus_path, 'tmp'), 'r') as wiki_in:
-				for line in wiki_in:
-					seg_list = jieba.cut(line)
-					seg_list = [item.encode('utf-8') for item in seg_list]
-					wiki_token_out.write(' '.join(seg_list)+'\n')
+		#os.system('iconv -c -t utf-8 < ' + os.path.join(self.corpus_path, self.simpleWiki_out) + ' > ' + os.path.join(self.corpus_path, 'tmp'))
+		##os.system('mv ' + os.path.join(self.corpus_path, 'tmp') + ' ' + os.path.join(self.corpus_path, self.simpleWiki_out))
+		#os.system('cat /dev/null > ' + os.path.join(self.corpus_path, self.simpleWiki_out))
+		#with open(os.path.join(self.corpus_path, self.simpleWiki_out), 'w') as wiki_token_out:
+		#	with open(os.path.join(self.corpus_path, 'tmp'), 'r') as wiki_in:
+		#		for line in wiki_in:
+		#			seg_list = jieba.cut(line)
+		#			seg_list = [item.encode('utf-8') for item in seg_list]
+		#			wiki_token_out.write(' '.join(seg_list)+'\n')
 
 		os.system('rm -rf ' + os.path.join(self.corpus_path, 'tmp'))
 

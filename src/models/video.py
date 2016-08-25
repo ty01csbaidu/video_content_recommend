@@ -38,12 +38,14 @@ class Video(object):
 			self.vid = fields[0]
 			name = fields[1].strip(' ').split(' ')
 			if len(name) > 0:
-				self.name = [item.encode('utf-8') for item in name]
+				#self.name = [item.encode('utf-8') for item in name]
+				self.name = name
 			self.cid = fields[2]
 
 		if len(fields) >= 5:
 			desc = fields[4].strip(' ').split(' ')
-			desc = [item.encode('utf-8') for item in desc if item not in filtered_set]
+			#desc = [item.encode('utf-8') for item in desc if item not in filtered_set]
+			desc = [item for item in desc if item not in filtered_set]
 			if len(desc) > 0:
 				self.desc = desc
 

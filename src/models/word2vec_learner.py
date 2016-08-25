@@ -87,8 +87,10 @@ class WikiLearner(Learner):
 			with open(os.path.join(self.corpus_path, 'tmp'), 'r') as wiki_in:
 				for line in wiki_in:
 					seg_list = jieba.cut(line)
-                                        seg_list = [item.encode('utf-8') for item in seg_list]
+					seg_list = [item.encode('utf-8') for item in seg_list]
 					wiki_token_out.write(' '.join(seg_list)+'\n')
+
+		os.system('rm -rf ' + os.path.join(self.corpus_path, 'tmp'))
 
 	def token(self):
 		"""

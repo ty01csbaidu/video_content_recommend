@@ -78,6 +78,8 @@ class DescSimilarity(Similarity):
 		:param y:
 		:return:
 		"""
+		x = [item for item in x if item in word2vec_model.vocab]
+		y = [item for item in y if item in word2vec_model.vocab]
 		score = word2vec_model.n_similarity(x, y)
 		return score
 
@@ -95,6 +97,8 @@ class TitleSimilarity(Similarity):
 		:param word2vec_model:
 		:return:
 		"""
+		x = [item for item in x if item in word2vec_model.vocab]
+		y = [item for item in y if item in word2vec_model.vocab]
 		score = word2vec_model.n_similarity(x, y)
 		return score
 

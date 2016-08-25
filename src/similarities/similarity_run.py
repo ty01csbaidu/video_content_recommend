@@ -11,6 +11,7 @@ from src.models import video
 
 import sys
 from gensim.models import Word2vec
+sys.path.append(../../)
 
 
 if __name__ == '__main__':

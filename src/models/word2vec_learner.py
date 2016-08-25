@@ -10,6 +10,7 @@ import sys
 import os
 
 from gensim.corpora import WikiCorpus
+from gensim.models import Word2Vec
 import jieba
 
 
@@ -64,19 +65,20 @@ class WikiLearner(Learner):
 		:return:
 		"""
 		#os.system('wget https://dumps.wikimedia.org/zhwiki/latest/zhwiki-latest-pages-articles.xml.bz2')
-		wiki = WikiCorpus('zhwiki-latest-pages-articles.xml.bz2', lemmatize=False, dictionary={})
-		with open(self.zhwiki_out, 'w') as zhwiki_o:
-			i = 0
-			for text in wiki.get_texts():
-				zhwiki_o.write(" ".join(text) + "\n")
-				i = i + 1
-				if (i % 10000 == 0):
-					logger.info("Saved " + str(i) + " articles")
+		#wiki = WikiCorpus('zhwiki-latest-pages-articles.xml.bz2', lemmatize=False, dictionary={})
+		#with open(self.zhwiki_out, 'w') as zhwiki_o:
+		#	i = 0
+		#	for text in wiki.get_texts():
+		#		zhwiki_o.write(" ".join(text) + "\n")
+		#		i = i + 1
+		#		if (i % 10000 == 0):
+		#			logger.info("Saved " + str(i) + " articles")
 
-			logger.info("Finished Saved " + str(i) + " articles")
+		#	logger.info("Finished Saved " + str(i) + " articles")
 
-		# translate to simple chinese
-		os.system('opencc -i ' + self.zhwiki_out + ' -o ' + os.path.join(self.corpus_path, self.simpleWiki_out) + ' -c zht2zhs.ini')
+		## translate to simple chinese
+		os.system('opencc -i ' + self.zhwiki_out + ' -o ' + os.path.join(self.corpus_path,
+                  self.simpleWiki_out) + ' -c /data/dev/tangye/opencc-1.0.4/data/config/t2s.json')
 
 		os.system('iconv -c -t utf-8 < ' + os.path.join(self.corpus_path, self.simpleWiki_out) + ' > ' + os.path.join(self.corpus_path, 'tmp'))
 		#os.system('mv ' + os.path.join(self.corpus_path, 'tmp') + ' ' + os.path.join(self.corpus_path, self.simpleWiki_out))
@@ -85,6 +87,7 @@ class WikiLearner(Learner):
 			with open(os.path.join(self.corpus_path, 'tmp'), 'r') as wiki_in:
 				for line in wiki_in:
 					seg_list = jieba.cut(line)
+                                        seg_list = [item.encode('utf-8') for item in seg_list]
 					wiki_token_out.write(' '.join(seg_list)+'\n')
 
 	def token(self):
@@ -96,7 +99,7 @@ class WikiLearner(Learner):
 		return sentences
 
 	def train(self, sentences):
-		model = Word2vec(sentences, size = self.size, window = self.window, alpha = self.alpha,
+		model = Word2Vec(sentences, size = self.size, window = self.window, alpha = self.alpha,
 										 workers = self.workers, sg = self.sg, hs = self.hs, negative = self.negative,
 										 min_count = self.min_count)
 

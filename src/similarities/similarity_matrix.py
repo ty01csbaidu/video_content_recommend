@@ -40,7 +40,7 @@ class SimilarityMatrix(object):
 			for j, sec_video in enumerate(videos):
 				if not i == j:
 					desc_similarity.compute(fir_video.desc, sec_video.desc, self.word2vec_model)
-					title_similarity.compute(fir_video.title, sec_video.title, self.word2vec_model)
+					title_similarity.compute(fir_video.name, sec_video.name, self.word2vec_model)
 					tag_similarity.compute(fir_video.tag, sec_video.tag)
 					star_similarity.compute(fir_video.star, sec_video.star)
 					linear_simialarity.set_similarity([desc_similarity, title_similarity, tag_similarity, star_similarity])

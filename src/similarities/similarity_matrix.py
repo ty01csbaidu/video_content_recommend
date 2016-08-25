@@ -7,7 +7,6 @@
 
 
 import logging
-from src.models.video import Video, VideoIterable
 from similarity import DescSimilarity, TagSimilarity, TitleSimilarity, StarSimilarity
 from structural_similarity import LinearStructuralSimilarity
 

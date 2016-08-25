@@ -43,7 +43,8 @@ class Video(object):
 
 		if len(fields) >= 5:
 			desc = fields[4].strip(' ').split(' ')
-			if len(desc) > 0 and desc not in filtered_set:
+			desc = [item for item in desc if item not in filtered_set]
+			if len(desc) > 0:
 				self.desc = desc
 
 		if len(fields) >= 6:

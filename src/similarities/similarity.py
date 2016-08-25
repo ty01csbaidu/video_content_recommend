@@ -87,11 +87,11 @@ class DescSimilarity(Similarity):
 			y_array = np.asarray([word2vec_model[item] for item in y])
 			x_mean = np.mean(x_array, axis=0)
 			y_mean = np.mean(y_array, axis=0)
-			print x_mean
+			#print x_mean
 			for item in y:
 				print item
 				print word2vec_model[item]
-			print y_mean
+			#print y_mean
 			score = cosine(x_mean, y_mean)
 			#score = word2vec_model.n_similarity(x, y)
 		return score

@@ -82,6 +82,8 @@ class DescSimilarity(Similarity):
 		if x is not None and y is not None:
 			x = [item for item in x if item in word2vec_model.vocab]
 			y = [item for item in y if item in word2vec_model.vocab]
+			for item in x:
+				print word2vec_model.vocab[item]
 			score = word2vec_model.n_similarity(x, y)
 		return score
 
@@ -103,9 +105,6 @@ class TitleSimilarity(Similarity):
 		if x is not None and y is not None:
 			x = [item for item in x if item in word2vec_model.vocab]
 			y = [item for item in y if item in word2vec_model.vocab]
-			for item in x:
-				print word2vec_model.vocab[item]
-
 			score = word2vec_model.n_similarity(x, y)
 		return score
 

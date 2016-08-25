@@ -7,18 +7,20 @@
 
 
 from similarity_matrix import SimilarityMatrix
-from src.models import video
 
 import sys
-from gensim.models import Word2vec
-sys.path.append(../../)
+import os
+from gensim.models import Word2Vec
+sys.path.append(os.path.abspath(os.path.dirname(__file__) + '/' + '..'))
+
+from models.video import Video, VideoIterable
 
 
 if __name__ == '__main__':
 	trained_model = sys.argv[1]
 	vid_file = sys.argv[2]
 	similarity_out = sys.argv[3]
-	model = Word2vec.load_word2vec_format(trained_model, binary=True)
+	model = Word2Vec.load_word2vec_format(trained_model, binary=True)
 	videos = VideoIterable(vid_file)
 	similarity_matrix = SimilarityMatrix(similarity_out, model, 20)
 	s_matrix, idx_dict = similarity_matrix.compute(videos)

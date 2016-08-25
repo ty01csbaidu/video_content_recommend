@@ -90,7 +90,7 @@ class WikiLearner(Learner):
 		#			seg_list = [item.encode('utf-8') for item in seg_list]
 		#			wiki_token_out.write(' '.join(seg_list)+'\n')
 
-		os.system('rm -rf ' + os.path.join(self.corpus_path, 'tmp'))
+		#os.system('rm -rf ' + os.path.join(self.corpus_path, 'tmp'))
 
 	def token(self):
 		"""

@@ -115,9 +115,11 @@ class TagSimilarity(Similarity):
 		self.filtered_tags = set(['剧情','偶像','全部剧集'])
 
 	def compute(self, x, y):
-		x = x - self.filtered_tags
-		y = y - self.filtered_tags
-		score = self.set_cosin_similarity(x, y)
+		score = 0
+		if x is not None and y is not None:
+			x = x - self.filtered_tags
+			y = y - self.filtered_tags
+			score = self.set_cosin_similarity(x, y)
 		return score
 
 
@@ -129,9 +131,11 @@ class StarSimilarity(Similarity):
 		self.filtered_stars = set(['暂无','无'])
 
 	def compute(self, x, y):
-		x = x - self.filtered_stars
-		y = y - self.filtered_stars
-		score = self.set_cosin_similarity(x, y)
+		score = 0
+		if x is not None and y is not None:
+			x = x - self.filtered_stars
+			y = y - self.filtered_stars
+			score = self.set_cosin_similarity(x, y)
 		return score
 
 ## vim: set ts=2 sw=2: #

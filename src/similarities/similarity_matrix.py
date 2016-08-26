@@ -9,6 +9,7 @@
 import logging
 from similarity import DescSimilarity, TagSimilarity, TitleSimilarity, StarSimilarity
 from structural_similarity import LinearStructuralSimilarity
+from scipy.spatial.distance import cosine
 
 
 logger = logging.getLogger('simialrities.similarity_matrix')
@@ -34,13 +35,18 @@ class SimilarityMatrix(object):
 
 		s_matrix = []
 		idx_dict = {}
+
 		for i, fir_video in enumerate(videos):
+			#transform documents to vector firstly, then compute score
+			doc_vector_i = desc_similarity.document_vector(fir_video.desc, self.word2vec_model)
 			print "compute similarity documents: " + str(i)
 			idx_dict[i] = fir_video.vid
 			matrix_row = {}
 			for j, sec_video in enumerate(videos):
 				if i < j:
-					desc_score = desc_similarity.compute(fir_video.desc, sec_video.desc, self.word2vec_model)
+					doc_vector_j = desc_similarity.document_vector(sec_video.desc, self.word2vec_model)
+					#desc_score = desc_similarity.compute(fir_video.desc, sec_video.desc, self.word2vec_model)
+					desc_score = cosine(doc_vector_i, doc_vector_j)
 					#title_score = title_similarity.compute(fir_video.name, sec_video.name, self.word2vec_model)
 					title_score = title_similarity.cosin_compute(fir_video.name, sec_video.name)
 					tag_score = tag_similarity.compute(fir_video.tag, sec_video.tag)

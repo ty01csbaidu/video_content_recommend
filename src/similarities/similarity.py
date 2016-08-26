@@ -92,6 +92,16 @@ class DescSimilarity(Similarity):
 				score = word2vec_model.n_similarity(x, y)
 		return score
 
+	def document_vector(self, x, word2vec_model):
+		x_mean = np.zeros(word2vec_model.vector_size)
+		if x is not None:
+			x = [item for item in x if item in word2vec_model]
+			x_array = np.asarray([word2vec_model[item] for item in x])
+			x_mean = np.mean(x_array, axis=0)
+		return x_mean
+
+
+
 
 class TitleSimilarity(Similarity):
 	"""

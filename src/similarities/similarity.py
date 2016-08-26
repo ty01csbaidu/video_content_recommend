@@ -119,6 +119,15 @@ class TitleSimilarity(Similarity):
 				score = word2vec_model.n_similarity(x, y)
 		return score
 
+	def cosin_compute(self, x, y):
+		score = 0
+		if x is not None and y is not None:
+			x = x - self.filtered_tags
+			y = y - self.filtered_tags
+			score = self.set_cosin_similarity(x, y)
+		return score
+
+
 
 class TagSimilarity(Similarity):
 	"""

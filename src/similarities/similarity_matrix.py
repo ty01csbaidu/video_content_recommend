@@ -35,17 +35,25 @@ class SimilarityMatrix(object):
 		s_matrix = []
 		idx_dict = {}
 		for i, fir_video in enumerate(videos):
+			print "compute similarity documents: i"
 			idx_dict[i] = fir_video.vid
-			matrix_row = []
+			matrix_row = {}
 			for j, sec_video in enumerate(videos):
-				if not i == j:
+				if i < j:
 					desc_score = desc_similarity.compute(fir_video.desc, sec_video.desc, self.word2vec_model)
-					title_score = title_similarity.compute(fir_video.name, sec_video.name, self.word2vec_model)
+					#title_score = title_similarity.compute(fir_video.name, sec_video.name, self.word2vec_model)
+					title_score = title_similarity.cosin_compute(fir_video.name, sec_video.name)
 					tag_score = tag_similarity.compute(fir_video.tag, sec_video.tag)
 					star_score = star_similarity.compute(fir_video.stars, sec_video.stars)
 					linear_simialarity.set_similarity([desc_score, title_score, tag_score, star_score])
 					s = linear_simialarity.compute()
-					matrix_row.append((j, s))
+					matrix_row[j] = s
+
+				elif i > j:
+					#symmetric
+					matrix_row[j] = s_matrix[j][i]
+
+			matrix_row = matrix_row.items()
 			# topN
 			matrix_row = sorted(matrix_row, key=lambda x:x[1], reverse=True)
 			s_matrix.append(matrix_row[:self.topN])

@@ -79,7 +79,7 @@ def video_token(vid_file, vid_out, corpus_out):
 		with open(vid_out, 'w') as v_o:
 			with open(vid_file, 'r') as v_f:
 				for line in v_f:
-					fields = line.strip('\t').split('\t')
+					fields = line.strip('\t').strip('\n').split('\t')
 					if len(fields) >= 3:
 						name = fields[1].strip(' ')
 						name_seg_list = jieba.cut(name)

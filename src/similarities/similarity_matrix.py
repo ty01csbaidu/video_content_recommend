@@ -35,7 +35,7 @@ class SimilarityMatrix(object):
 		s_matrix = []
 		idx_dict = {}
 		for i, fir_video in enumerate(videos):
-			print "compute similarity documents: i"
+			print "compute similarity documents: " + str(i)
 			idx_dict[i] = fir_video.vid
 			matrix_row = {}
 			for j, sec_video in enumerate(videos):

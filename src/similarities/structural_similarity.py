@@ -36,8 +36,8 @@ class LinearStructuralSimilarity(StructuralSimilarity):
 
 	def compute(self):
 		assert(len(self.weights) == len(self.unit_similarities))
-		print self.unit_similarities
-		print self.weights
+		#print self.unit_similarities
+		#print self.weights
 		w = np.asarray(self.weights, dtype=float)
 		s = np.asarray(self.unit_similarities, dtype=float)
 		score = np.dot(w, s)

@@ -81,28 +81,15 @@ class DescSimilarity(Similarity):
 		"""
 		score = 0
 		if x is not None and y is not None:
-			ret = ""
-			for item in x:
-				ret += ' ' + item
-			print ret
-			ret = ""
-			for item in y:
-				ret += ' ' + item
-			print ret
 			x = [item for item in x if item in word2vec_model.vocab]
 			y = [item for item in y if item in word2vec_model.vocab]
-			x_array = np.asarray([word2vec_model[item] for item in x])
-			y_array = np.asarray([word2vec_model[item] for item in y])
-			x_mean = np.mean(x_array, axis=0)
-			y_mean = np.mean(y_array, axis=0)
-			#print x_mean
-			print y
-			for item in y:
-				print item
-				print word2vec_model[item]
-			#print y_mean
-			score = cosine(x_mean, y_mean)
-			#score = word2vec_model.n_similarity(x, y)
+			if len(x) > 0 and len(y) > 0:
+				#x_array = np.asarray([word2vec_model[item] for item in x])
+				#y_array = np.asarray([word2vec_model[item] for item in y])
+				#x_mean = np.mean(x_array, axis=0)
+				#y_mean = np.mean(y_array, axis=0)
+				#score = cosine(x_mean, y_mean)
+				score = word2vec_model.n_similarity(x, y)
 		return score
 
 
@@ -123,12 +110,13 @@ class TitleSimilarity(Similarity):
 		if x is not None and y is not None:
 			x = [item for item in x if item in word2vec_model.vocab]
 			y = [item for item in y if item in word2vec_model.vocab]
-			x_array = np.asarray([word2vec_model[item] for item in x])
-			y_array = np.asarray([word2vec_model[item] for item in y])
-			x_mean = np.mean(x_array, axis=0)
-			y_mean = np.mean(y_array, axis=0)
-			score = cosine(x_mean, y_mean)
-			#score = word2vec_model.n_similarity(x, y)
+			if len(x) > 0 and len(y) > 0:
+				#x_array = np.asarray([word2vec_model[item] for item in x])
+				#y_array = np.asarray([word2vec_model[item] for item in y])
+				#x_mean = np.mean(x_array, axis=0)
+				#y_mean = np.mean(y_array, axis=0)
+				#score = cosine(x_mean, y_mean)
+				score = word2vec_model.n_similarity(x, y)
 		return score
 
 

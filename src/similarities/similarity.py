@@ -82,8 +82,12 @@ class DescSimilarity(Similarity):
 		score = 0
 		if x is not None and y is not None:
 			ret = ""
+			for item in x:
+				ret += ' ' + item
+			print ret
+			ret = ""
 			for item in y:
-				ret += item.encode('utf-8')
+				ret += ' ' + item
 			print ret
 			x = [item for item in x if item in word2vec_model.vocab]
 			y = [item for item in y if item in word2vec_model.vocab]

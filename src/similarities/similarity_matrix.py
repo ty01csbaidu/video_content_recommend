@@ -53,10 +53,14 @@ class SimilarityMatrix(object):
 					#symmetric
 					matrix_row[j] = s_matrix[j][i]
 
+
+			s_matrix.append(matrix_row)
+
+		for i, matrix_row in enumerate(s_matrix):
 			matrix_row = matrix_row.items()
 			# topN
 			matrix_row = sorted(matrix_row, key=lambda x:x[1], reverse=True)
-			s_matrix.append(matrix_row[:self.topN])
+			s_matrix[i] = matrix_row[:self.topN]
 
 		return (s_matrix, idx_dict)
 

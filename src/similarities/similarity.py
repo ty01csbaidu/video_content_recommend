@@ -122,7 +122,7 @@ class TitleSimilarity(Similarity):
 	def cosin_compute(self, x, y):
 		score = 0
 		if x is not None and y is not None:
-			score = self.set_cosin_similarity(x, y)
+			score = self.set_cosin_similarity(set(x), set(y))
 		return score
 
 

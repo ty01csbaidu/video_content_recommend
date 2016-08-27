@@ -47,8 +47,8 @@ class SimilarityMatrix(object):
 			for j, sec_video in enumerate(videos):
 				if i < j:
 					#desc_score = desc_similarity.compute(fir_video.desc, sec_video.desc, self.word2vec_model)
-					print doc_vector[i]
-					print doc_vector[j]
+					#print doc_vector[i]
+					#print doc_vector[j]
 					desc_score = cosine(doc_vector[i], doc_vector[j])
 					#title_score = title_similarity.compute(fir_video.name, sec_video.name, self.word2vec_model)
 					title_score = title_similarity.cosin_compute(fir_video.name, sec_video.name)

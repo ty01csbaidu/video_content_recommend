@@ -92,15 +92,15 @@ class DescSimilarity(Similarity):
 				score = word2vec_model.n_similarity(x, y)
 		return score
 
-	def document_vector(self, x, word2vec_model):
-		x_mean = np.zeros(word2vec_model.vector_size)
+	def document_vector(self, x, word2vec_model, small_e=0.0001):
+		x_mean = np.zeros(word2vec_model.vector_size) + small_e
 		if x is not None:
 			x = [item for item in x if item in word2vec_model]
 			if len(x) > 0:
 				x_array = np.asarray([word2vec_model[item] for item in x])
-				print x_array.shape
+				#print x_array.shape
 				x_mean = np.mean(x_array, axis=0)
-				print x_mean.shape
+				#print x_mean.shape
 		return x_mean
 
 

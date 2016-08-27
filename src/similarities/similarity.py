@@ -98,7 +98,9 @@ class DescSimilarity(Similarity):
 			x = [item for item in x if item in word2vec_model]
 			if len(x) > 0:
 				x_array = np.asarray([word2vec_model[item] for item in x])
+				print x_array.shape
 				x_mean = np.mean(x_array, axis=0)
+				print x_mean.shape
 		return x_mean
 
 

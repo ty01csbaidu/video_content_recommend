@@ -48,25 +48,25 @@ class SimilarityMatrix(object):
 				print 'name: '
 				if fir_video.name is not None:
 					for item in fir_video.name:
-						print item
+						print item.encode('utf-8')
 				else:
 					print None
 				print 'desc: '
 				if fir_video.desc is not None:
 					for item in fir_video.desc:
-						print item
+						print item.encode('utf-8')
 				else:
 					print None
 				print 'tag: '
 				if fir_video.tag is not None:
 					for item in fir_video.tag:
-						print item
+						print item.encode('utf-8')
 				else:
 					print None
 				print 'stars: '
 				if fir_video.stars is not None:
 					for item in fir_video.stars:
-						print item
+						print item.encode('utf-8')
 				else:
 					print None
 
@@ -85,25 +85,25 @@ class SimilarityMatrix(object):
 						print 'name: '
 						if sec_video.name is not None:
 							for item in sec_video.name:
-								print item
+								print item.encode('utf-8')
 						else:
 							print None
 						print 'desc: '
 						if sec_video.desc is not None:
 							for item in sec_video.desc:
-								print item
+								print item.encode('utf-8')
 						else:
 							print None
 						print 'tag: '
 						if sec_video.tag is not None:
 							for item in sec_video.tag:
-								print item
+								print item.encode('utf-8')
 						else:
 							print None
 						print 'stars: '
 						if sec_video.stars is not None:
 							for item in sec_video.stars:
-								print item
+								print item.encode('utf-8')
 						else:
 							print None
 

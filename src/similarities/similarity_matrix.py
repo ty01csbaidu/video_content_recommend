@@ -47,26 +47,34 @@ class SimilarityMatrix(object):
 			if fir_video.vid == '192':
 				print 'name: '
 				if fir_video.name is not None:
+					ret = ''
 					for item in fir_video.name:
-						print item.encode('utf-8')
+						ret += item
+					print ret.encode('utf-8', errors='ignore')
 				else:
 					print None
 				print 'desc: '
 				if fir_video.desc is not None:
+					ret = ''
 					for item in fir_video.desc:
-						print item.encode('utf-8')
+						ret += item
+					print ret.encode('utf-8', errors='ignore')
 				else:
 					print None
 				print 'tag: '
 				if fir_video.tag is not None:
+					ret = ''
 					for item in fir_video.tag:
-						print item.encode('utf-8')
+						ret += item
+					print ret.encode('utf-8', errors='ignore')
 				else:
 					print None
 				print 'stars: '
 				if fir_video.stars is not None:
+					ret = ''
 					for item in fir_video.stars:
-						print item.encode('utf-8')
+						ret += item
+					print ret.encode('utf-8', errors='ignore')
 				else:
 					print None
 
@@ -84,28 +92,34 @@ class SimilarityMatrix(object):
 						print sec_video.vid
 						print 'name: '
 						if sec_video.name is not None:
+							ret = ''
 							for item in sec_video.name:
-								print item.encode('utf-8')
+								ret += item
+							print ret.encode('utf-8', errors='ignore')
 						else:
 							print None
 						print 'desc: '
 						if sec_video.desc is not None:
+							ret = ''
 							for item in sec_video.desc:
-								print item.encode('utf-8')
+								ret += item
+							print ret.encode('utf-8', errors='ignore')
 						else:
 							print None
 						print 'tag: '
 						if sec_video.tag is not None:
+							ret = ''
 							for item in sec_video.tag:
-								print item.encode('utf-8')
+								ret += item
+							print ret.encode('utf-8', errors='ignore')
 						else:
 							print None
 						print 'stars: '
 						if sec_video.stars is not None:
+							ret = ''
 							for item in sec_video.stars:
-								print item.encode('utf-8')
-						else:
-							print None
+								ret += item
+							print ret.encode('utf-8', errors='ignore')
 
 						print "desc: " + str(desc_score)
 						print "title: " + str(title_score)

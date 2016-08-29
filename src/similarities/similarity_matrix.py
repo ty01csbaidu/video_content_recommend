@@ -45,10 +45,26 @@ class SimilarityMatrix(object):
 			idx_dict[i] = fir_video.vid
 			matrix_row = {}
 			if fir_video.vid == '192':
-				print fir_video.title
-				print fir_video.desc
-				print fir_video.tag
-				print fir_video.stars
+				print 'name: '
+				if fir_video.name is not None:
+					print ' '.join(fir_video.name)
+				else:
+					print None
+				print 'desc: '
+				if fir_video.desc is not None:
+					print ' '.join(fir_video.desc)
+				else:
+					print None
+				print 'tag: '
+				if fir_video.tag is not None:
+					print ' '.join(list(fir_video.tag))
+				else:
+					print None
+				print 'stars: '
+				if fir_video.stars is not None:
+					print ' '.join(list(fir_video.stars))
+				else:
+					print None
 
 			for j, sec_video in enumerate(videos):
 				if i < j:
@@ -62,10 +78,26 @@ class SimilarityMatrix(object):
 					star_score = star_similarity.compute(fir_video.stars, sec_video.stars)
 					if fir_video.vid == '192':
 						print sec_video.vid
-						print sec_video.title
-						print sec_video.desc
-						print sec_video.tag
-						print sec_video.stars
+						print 'name: '
+						if sec_video.name is not None:
+							print ' '.join(sec_video.name)
+						else:
+							print None
+						print 'desc: '
+						if sec_video.desc is not None:
+							print ' '.join(sec_video.desc)
+						else:
+							print None
+						print 'tag: '
+						if sec_video.tag is not None:
+							print ' '.join(list(sec_video.tag))
+						else:
+							print None
+						print 'stars: '
+						if sec_video.stars is not None:
+							print ' '.join(list(sec_video.stars))
+						else:
+							print None
 
 						print "desc: " + str(desc_score)
 						print "title: " + str(title_score)

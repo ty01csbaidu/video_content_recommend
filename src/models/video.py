@@ -34,7 +34,7 @@ class Video(object):
 
 	def read(self):
 		fields = self.line.strip('\t').strip('\n').split('\t')
-		print self.line
+		#print self.line
 		if len(fields) >= 3:
 			self.vid = fields[0]
 			name = fields[1].strip(' ').split(' ')
@@ -51,16 +51,18 @@ class Video(object):
 				self.desc = desc
 
 		if len(fields) >= 6:
-			tags = fields[5].strip(' ').split(',')
-			print tags
-			if len(tags) > 0:
-				self.tags = set(tags)
+			if len(fields[5]) > 0:
+				tags = fields[5].strip(' ').split(',')
+				#print tags
+				if len(tags) > 0 and not tags == ['']:
+					self.tags = set(tags)
 
 		if len(fields) >= 8:
-			stars = fields[7].strip(' ').split('|')
-			print stars
-			if len(stars) > 0:
-				self.stars = set(stars)
+			if len(fields[7]) > 0:
+				stars = fields[7].strip(' ').split('|')
+				#print stars
+				if len(stars) > 0 and not stars == ['']:
+					self.stars = set(stars)
 
 		return self
 

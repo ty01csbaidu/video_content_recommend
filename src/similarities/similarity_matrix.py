@@ -54,6 +54,12 @@ class SimilarityMatrix(object):
 					title_score = title_similarity.cosin_compute(fir_video.name, sec_video.name)
 					tag_score = tag_similarity.compute(fir_video.tag, sec_video.tag)
 					star_score = star_similarity.compute(fir_video.stars, sec_video.stars)
+					if fir_video.vid == 192:
+						print sec_video.vid
+						print "desc: " + str(desc_score)
+						print "title: " + str(title_score)
+						print "tag: " + str(tag_score)
+						print "star: " + str(star_score)
 					linear_simialarity.set_similarity([desc_score, title_score, tag_score, star_score])
 					s = linear_simialarity.compute()
 					matrix_row[j] = s

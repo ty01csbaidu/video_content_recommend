@@ -85,7 +85,8 @@ class SimilarityMatrix(object):
 					#desc_score = desc_similarity.compute(fir_video.desc, sec_video.desc, self.word2vec_model)
 					#print doc_vector[i]
 					#print doc_vector[j]
-					desc_score = cosine(doc_vector[i], doc_vector[j])
+					# using scipy cosine distance, so compute similarity we have compute 1 - dt
+					desc_score = 1 - cosine(doc_vector[i], doc_vector[j])
 					#title_score = title_similarity.compute(fir_video.name, sec_video.name, self.word2vec_model)
 					title_score = title_similarity.cosin_compute(fir_video.name, sec_video.name)
 					tag_score = tag_similarity.compute(fir_video.tags, sec_video.tags)

@@ -7,12 +7,26 @@
 
 
 import logging
+import heapq
 from similarity import DescSimilarity, TagSimilarity, TitleSimilarity, StarSimilarity
 from structural_similarity import LinearStructuralSimilarity
 from scipy.spatial.distance import cosine
 
 
 logger = logging.getLogger('simialrities.similarity_matrix')
+
+
+class ScorePair(object):
+	"""
+	similarity score pair
+	"""
+	def __init__(self, idx=0, s=0):
+		self.idx = idx
+		self.s = s
+
+	def __lt__(self, other):
+		return self.s < other.s
+
 
 class SimilarityMatrix(object):
 
@@ -40,10 +54,13 @@ class SimilarityMatrix(object):
 		doc_vector = []
 		for i, video in enumerate(videos):
 			doc_vector.append(desc_similarity.document_vector(video.desc, self.word2vec_model))
+			matrix_row = []
+			heapq.heapify(matrix_row)
+			s_matrix.append(matrix_row)
+
 		for i, fir_video in enumerate(videos):
 			print "compute similarity documents: " + str(i)
 			idx_dict[i] = fir_video.vid
-			matrix_row = {}
 			#if fir_video.vid == '192':
 			#	print 'name: '
 			#	if fir_video.name is not None:
@@ -132,20 +149,20 @@ class SimilarityMatrix(object):
 					#	print "star: " + str(star_score)
 					linear_simialarity.set_similarity([desc_score, title_score, tag_score, star_score])
 					s = linear_simialarity.compute()
-					matrix_row[j] = s
+					sp = ScorePair(j, s)
+					if len(s_matrix[i]) < self.topN:
+						s_matrix[i].append(sp)
+					else:
+						heapq.heappushpop(s_matrix[i], sp)
+					if len(s_matrix[j]) < self.topN:
+						s_matrix[j].append(sp)
+					else:
+						heapq.heappushpop(s_matrix[j], sp)
 
-				elif i > j:
-					#symmetric
-					matrix_row[j] = s_matrix[j][i]
 
-
-			s_matrix.append(matrix_row)
 
 		for i, matrix_row in enumerate(s_matrix):
-			matrix_row = matrix_row.items()
-			# topN
-			matrix_row = sorted(matrix_row, key=lambda x:x[1], reverse=True)
-			s_matrix[i] = matrix_row[:self.topN]
+			s_matrix[i] = heapq.nlargest(self.topN, matrix_row)
 
 		return (s_matrix, idx_dict)
 

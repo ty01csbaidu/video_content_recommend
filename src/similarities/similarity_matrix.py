@@ -173,8 +173,8 @@ class SimilarityMatrix(object):
 					vid = idx_dict[id]
 					ret_list = []
 					for item in top_similarity:
-						s_id = item[0]
-						score = item[1]
+						s_id = item.idx
+						score = item.s
 						if s_id in idx_dict:
 							s_vid = idx_dict[s_id]
 							ret_list.append(str(s_vid) + ':' + str(score))

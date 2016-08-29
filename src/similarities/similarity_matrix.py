@@ -66,7 +66,8 @@ class SimilarityMatrix(object):
 					ret = ''
 					for item in fir_video.tag:
 						ret += item
-					print ret.encode('utf-8', errors='ignore')
+					#print ret.encode('utf-8', errors='ignore')
+					print ret
 				else:
 					print None
 				print 'stars: '
@@ -74,7 +75,8 @@ class SimilarityMatrix(object):
 					ret = ''
 					for item in fir_video.stars:
 						ret += item
-					print ret.encode('utf-8', errors='ignore')
+					#print ret.encode('utf-8', errors='ignore')
+					print ret
 				else:
 					print None
 
@@ -111,7 +113,8 @@ class SimilarityMatrix(object):
 							ret = ''
 							for item in sec_video.tag:
 								ret += item
-							print ret.encode('utf-8', errors='ignore')
+							#print ret.encode('utf-8', errors='ignore')
+							print ret
 						else:
 							print None
 						print 'stars: '
@@ -119,7 +122,8 @@ class SimilarityMatrix(object):
 							ret = ''
 							for item in sec_video.stars:
 								ret += item
-							print ret.encode('utf-8', errors='ignore')
+							#print ret.encode('utf-8', errors='ignore')
+							print ret
 
 						print "desc: " + str(desc_score)
 						print "title: " + str(title_score)

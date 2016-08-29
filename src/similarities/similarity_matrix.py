@@ -47,22 +47,26 @@ class SimilarityMatrix(object):
 			if fir_video.vid == '192':
 				print 'name: '
 				if fir_video.name is not None:
-					print ' '.join(fir_video.name)
+					for item in fir_video.name:
+						print item
 				else:
 					print None
 				print 'desc: '
 				if fir_video.desc is not None:
-					print ' '.join(fir_video.desc)
+					for item in fir_video.desc:
+						print item
 				else:
 					print None
 				print 'tag: '
 				if fir_video.tag is not None:
-					print ' '.join(list(fir_video.tag))
+					for item in fir_video.tag:
+						print item
 				else:
 					print None
 				print 'stars: '
 				if fir_video.stars is not None:
-					print ' '.join(list(fir_video.stars))
+					for item in fir_video.stars:
+						print item
 				else:
 					print None
 
@@ -80,22 +84,26 @@ class SimilarityMatrix(object):
 						print sec_video.vid
 						print 'name: '
 						if sec_video.name is not None:
-							print ' '.join(sec_video.name)
+							for item in sec_video.name:
+								print item
 						else:
 							print None
 						print 'desc: '
 						if sec_video.desc is not None:
-							print ' '.join(sec_video.desc)
+							for item in sec_video.desc:
+								print item
 						else:
 							print None
 						print 'tag: '
 						if sec_video.tag is not None:
-							print ' '.join(list(sec_video.tag))
+							for item in sec_video.tag:
+								print item
 						else:
 							print None
 						print 'stars: '
 						if sec_video.stars is not None:
-							print ' '.join(list(sec_video.stars))
+							for item in sec_video.stars:
+								print item
 						else:
 							print None
 

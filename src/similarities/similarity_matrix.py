@@ -44,6 +44,12 @@ class SimilarityMatrix(object):
 			print "compute similarity documents: " + str(i)
 			idx_dict[i] = fir_video.vid
 			matrix_row = {}
+			if fir_video.vid == '192':
+				print fir_video.title
+				print fir_video.desc
+				print fir_video.tag
+				print fir_video.stars
+
 			for j, sec_video in enumerate(videos):
 				if i < j:
 					#desc_score = desc_similarity.compute(fir_video.desc, sec_video.desc, self.word2vec_model)
@@ -54,8 +60,13 @@ class SimilarityMatrix(object):
 					title_score = title_similarity.cosin_compute(fir_video.name, sec_video.name)
 					tag_score = tag_similarity.compute(fir_video.tag, sec_video.tag)
 					star_score = star_similarity.compute(fir_video.stars, sec_video.stars)
-					if fir_video.vid == 192:
+					if fir_video.vid == '192':
 						print sec_video.vid
+						print sec_video.title
+						print sec_video.desc
+						print sec_video.tag
+						print sec_video.stars
+
 						print "desc: " + str(desc_score)
 						print "title: " + str(title_score)
 						print "tag: " + str(tag_score)

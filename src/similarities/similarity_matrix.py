@@ -45,7 +45,7 @@ class SimilarityMatrix(object):
 			idx_dict[i] = fir_video.vid
 			matrix_row = {}
 			if fir_video.vid == '192':
-				print fir_video.title
+				print fir_video.name
 				print fir_video.desc
 				print fir_video.tag
 				print fir_video.stars
@@ -62,7 +62,7 @@ class SimilarityMatrix(object):
 					star_score = star_similarity.compute(fir_video.stars, sec_video.stars)
 					if fir_video.vid == '192':
 						print sec_video.vid
-						print sec_video.title
+						print sec_video.name
 						print sec_video.desc
 						print sec_video.tag
 						print sec_video.stars

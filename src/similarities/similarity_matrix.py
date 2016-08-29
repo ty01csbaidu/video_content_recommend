@@ -62,9 +62,9 @@ class SimilarityMatrix(object):
 				else:
 					print None
 				print 'tag: '
-				if fir_video.tag is not None:
+				if fir_video.tags is not None:
 					ret = ''
-					for item in fir_video.tag:
+					for item in fir_video.tags:
 						ret += item
 					#print ret.encode('utf-8', errors='ignore')
 					print ret
@@ -88,7 +88,7 @@ class SimilarityMatrix(object):
 					desc_score = cosine(doc_vector[i], doc_vector[j])
 					#title_score = title_similarity.compute(fir_video.name, sec_video.name, self.word2vec_model)
 					title_score = title_similarity.cosin_compute(fir_video.name, sec_video.name)
-					tag_score = tag_similarity.compute(fir_video.tag, sec_video.tag)
+					tag_score = tag_similarity.compute(fir_video.tags, sec_video.tags)
 					star_score = star_similarity.compute(fir_video.stars, sec_video.stars)
 					if fir_video.vid == '192':
 						print sec_video.vid
@@ -109,9 +109,9 @@ class SimilarityMatrix(object):
 						else:
 							print None
 						print 'tag: '
-						if sec_video.tag is not None:
+						if sec_video.tags is not None:
 							ret = ''
-							for item in sec_video.tag:
+							for item in sec_video.tags:
 								ret += item
 							#print ret.encode('utf-8', errors='ignore')
 							print ret

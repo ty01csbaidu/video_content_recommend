@@ -30,7 +30,7 @@ class Video(object):
 		self.cid = None
 		self.desc = None
 		self.stars = None
-		self.tag = None
+		self.tags= None
 
 	def read(self):
 		fields = self.line.strip('\t').strip('\n').split('\t')

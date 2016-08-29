@@ -44,41 +44,41 @@ class SimilarityMatrix(object):
 			print "compute similarity documents: " + str(i)
 			idx_dict[i] = fir_video.vid
 			matrix_row = {}
-			if fir_video.vid == '192':
-				print 'name: '
-				if fir_video.name is not None:
-					ret = ''
-					for item in fir_video.name:
-						ret += item
-					print ret.encode('utf-8', errors='ignore')
-				else:
-					print None
-				print 'desc: '
-				if fir_video.desc is not None:
-					ret = ''
-					for item in fir_video.desc:
-						ret += item
-					print ret.encode('utf-8', errors='ignore')
-				else:
-					print None
-				print 'tag: '
-				if fir_video.tags is not None:
-					ret = ''
-					for item in fir_video.tags:
-						ret += item
-					#print ret.encode('utf-8', errors='ignore')
-					print ret
-				else:
-					print None
-				print 'stars: '
-				if fir_video.stars is not None:
-					ret = ''
-					for item in fir_video.stars:
-						ret += item
-					#print ret.encode('utf-8', errors='ignore')
-					print ret
-				else:
-					print None
+			#if fir_video.vid == '192':
+			#	print 'name: '
+			#	if fir_video.name is not None:
+			#		ret = ''
+			#		for item in fir_video.name:
+			#			ret += item
+			#		print ret.encode('utf-8', errors='ignore')
+			#	else:
+			#		print None
+			#	print 'desc: '
+			#	if fir_video.desc is not None:
+			#		ret = ''
+			#		for item in fir_video.desc:
+			#			ret += item
+			#		print ret.encode('utf-8', errors='ignore')
+			#	else:
+			#		print None
+			#	print 'tag: '
+			#	if fir_video.tags is not None:
+			#		ret = ''
+			#		for item in fir_video.tags:
+			#			ret += item
+			#		#print ret.encode('utf-8', errors='ignore')
+			#		print ret
+			#	else:
+			#		print None
+			#	print 'stars: '
+			#	if fir_video.stars is not None:
+			#		ret = ''
+			#		for item in fir_video.stars:
+			#			ret += item
+			#		#print ret.encode('utf-8', errors='ignore')
+			#		print ret
+			#	else:
+			#		print None
 
 			for j, sec_video in enumerate(videos):
 				if i < j:
@@ -91,45 +91,45 @@ class SimilarityMatrix(object):
 					title_score = title_similarity.cosin_compute(fir_video.name, sec_video.name)
 					tag_score = tag_similarity.compute(fir_video.tags, sec_video.tags)
 					star_score = star_similarity.compute(fir_video.stars, sec_video.stars)
-					if fir_video.vid == '192':
-						print sec_video.vid
-						print 'name: '
-						if sec_video.name is not None:
-							ret = ''
-							for item in sec_video.name:
-								ret += item
-							print ret.encode('utf-8', errors='ignore')
-						else:
-							print None
-						print 'desc: '
-						if sec_video.desc is not None:
-							ret = ''
-							for item in sec_video.desc:
-								ret += item
-							print ret.encode('utf-8', errors='ignore')
-						else:
-							print None
-						print 'tag: '
-						if sec_video.tags is not None:
-							ret = ''
-							for item in sec_video.tags:
-								ret += item
-							#print ret.encode('utf-8', errors='ignore')
-							print ret
-						else:
-							print None
-						print 'stars: '
-						if sec_video.stars is not None:
-							ret = ''
-							for item in sec_video.stars:
-								ret += item
-							#print ret.encode('utf-8', errors='ignore')
-							print ret
+					#if fir_video.vid == '192':
+					#	print sec_video.vid
+					#	print 'name: '
+					#	if sec_video.name is not None:
+					#		ret = ''
+					#		for item in sec_video.name:
+					#			ret += item
+					#		print ret.encode('utf-8', errors='ignore')
+					#	else:
+					#		print None
+					#	print 'desc: '
+					#	if sec_video.desc is not None:
+					#		ret = ''
+					#		for item in sec_video.desc:
+					#			ret += item
+					#		print ret.encode('utf-8', errors='ignore')
+					#	else:
+					#		print None
+					#	print 'tag: '
+					#	if sec_video.tags is not None:
+					#		ret = ''
+					#		for item in sec_video.tags:
+					#			ret += item
+					#		#print ret.encode('utf-8', errors='ignore')
+					#		print ret
+					#	else:
+					#		print None
+					#	print 'stars: '
+					#	if sec_video.stars is not None:
+					#		ret = ''
+					#		for item in sec_video.stars:
+					#			ret += item
+					#		#print ret.encode('utf-8', errors='ignore')
+					#		print ret
 
-						print "desc: " + str(desc_score)
-						print "title: " + str(title_score)
-						print "tag: " + str(tag_score)
-						print "star: " + str(star_score)
+					#	print "desc: " + str(desc_score)
+					#	print "title: " + str(title_score)
+					#	print "tag: " + str(tag_score)
+					#	print "star: " + str(star_score)
 					linear_simialarity.set_similarity([desc_score, title_score, tag_score, star_score])
 					s = linear_simialarity.compute()
 					matrix_row[j] = s

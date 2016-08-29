@@ -150,8 +150,8 @@ class TagSimilarity(Similarity):
 	def compute(self, x, y):
 		score = 0
 		if x is not None and y is not None:
-			x = x - self.filtered_tags
-			y = y - self.filtered_tags
+			#x = x - self.filtered_tags
+			#y = y - self.filtered_tags
 			score = self.set_cosin_similarity(x, y)
 		return score
 
@@ -166,8 +166,8 @@ class StarSimilarity(Similarity):
 	def compute(self, x, y):
 		score = 0
 		if x is not None and y is not None:
-			x = x - self.filtered_stars
-			y = y - self.filtered_stars
+			#x = x - self.filtered_stars
+			#y = y - self.filtered_stars
 			score = self.set_cosin_similarity(x, y)
 		return score
 

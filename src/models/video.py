@@ -31,6 +31,8 @@ class Video(object):
 		self.desc = None
 		self.stars = None
 		self.tags= None
+		self.filtered_tags = set(['剧情','偶像','全部剧集'])
+		self.filtered_stars = set(['暂无','无'])
 
 	def read(self):
 		fields = self.line.strip('\t').strip('\n').split('\t')
@@ -55,14 +57,14 @@ class Video(object):
 				tags = fields[5].strip(' ').split(',')
 				#print tags
 				if len(tags) > 0 and not tags == ['']:
-					self.tags = set(tags)
+					self.tags = set(tags) - self.filtered_tags
 
 		if len(fields) >= 8:
 			if len(fields[7]) > 0:
 				stars = fields[7].strip(' ').split('|')
 				#print stars
 				if len(stars) > 0 and not stars == ['']:
-					self.stars = set(stars)
+					self.stars = set(stars) - self.filtered_stars
 
 		return self
 

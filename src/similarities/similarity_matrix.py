@@ -154,12 +154,11 @@ class SimilarityMatrix(object):
 						s_matrix[i].append(sp)
 					else:
 						heapq.heappushpop(s_matrix[i], sp)
+					s_sp = ScorePair(i, s)
 					if len(s_matrix[j]) < self.topN:
-						s_matrix[j].append(sp)
+						s_matrix[j].append(s_sp)
 					else:
-						heapq.heappushpop(s_matrix[j], sp)
-
-
+						heapq.heappushpop(s_matrix[j], s_sp)
 
 		for i, matrix_row in enumerate(s_matrix):
 			s_matrix[i] = heapq.nlargest(self.topN, matrix_row)

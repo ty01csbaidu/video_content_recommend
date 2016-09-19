@@ -11,6 +11,7 @@ import heapq
 from similarity import DescSimilarity, TagSimilarity, TitleSimilarity, StarSimilarity
 from structural_similarity import LinearStructuralSimilarity
 from scipy.spatial.distance import cosine
+import time
 
 
 logger = logging.getLogger('simialrities.similarity_matrix')
@@ -51,6 +52,7 @@ class SimilarityMatrix(object):
 		idx_dict = {}
 
 		#transform documents to vector firstly, then compute score
+		start_time = time.time()
 		doc_vector = []
 		for i, video in enumerate(videos):
 			doc_vector.append(desc_similarity.document_vector(video.desc, self.word2vec_model))
@@ -58,6 +60,9 @@ class SimilarityMatrix(object):
 			heapq.heapify(matrix_row)
 			s_matrix.append(matrix_row)
 
+		print("doc vector time: %s" % (time.time() - start_time))
+
+		start_time = time.time()
 		for i, fir_video in enumerate(videos):
 			print "compute similarity documents: " + str(i)
 			idx_dict[i] = fir_video.vid
@@ -103,11 +108,19 @@ class SimilarityMatrix(object):
 					#print doc_vector[i]
 					#print doc_vector[j]
 					# using scipy cosine distance, so compute similarity we have compute 1 - dt
+					local_start_time = time.time()
 					desc_score = 1 - cosine(doc_vector[i], doc_vector[j])
+					print("desc score: %s" % (time.time() - local_start_time))
+					local_start_time = time.time()
 					#title_score = title_similarity.compute(fir_video.name, sec_video.name, self.word2vec_model)
 					title_score = title_similarity.cosin_compute(fir_video.name, sec_video.name)
+					print("title score: %s" % (time.time() - local_start_time))
+					local_start_time = time.time()
 					tag_score = tag_similarity.compute(fir_video.tags, sec_video.tags)
+					print("tag score: %s" % (time.time() - local_start_time))
+					local_start_time = time.time()
 					star_score = star_similarity.compute(fir_video.stars, sec_video.stars)
+					print("star score: %s" % (time.time() - local_start_time))
 					#if fir_video.vid == '192':
 					#	print sec_video.vid
 					#	print 'name: '
@@ -159,6 +172,7 @@ class SimilarityMatrix(object):
 						s_matrix[j].append(s_sp)
 					else:
 						heapq.heappushpop(s_matrix[j], s_sp)
+		print("pair simelarity: %s" %(time.time() - start_time))
 
 		for i, matrix_row in enumerate(s_matrix):
 			s_matrix[i] = heapq.nlargest(self.topN, matrix_row)

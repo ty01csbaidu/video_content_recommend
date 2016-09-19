@@ -3,3 +3,5 @@ data/
 *.bz2
 *log
 *.pyc
+*.out
+*.prof

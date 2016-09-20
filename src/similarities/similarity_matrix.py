@@ -143,7 +143,9 @@ class SimilarityMatrix(object):
 
 		#compute similarity between old video and videos
 		if old_videos is not None:
+			print "compute old video similarity"
 			for i, old_video in enumerate(old_videos):
+				print("compute old video: %d" % i)
 				old_vid = old_video.vid
 				if old_vid in self.doc_vector and old_vid in self.s_matrix:
 					for j, new_video in enumerate(videos):

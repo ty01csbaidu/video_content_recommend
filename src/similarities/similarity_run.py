@@ -25,6 +25,7 @@ if __name__ == '__main__':
 	vid_file = sys.argv[5]
 	matrix_out = sys.argv[6]
 	doc_vector_out = sys.argv[7]
+	flag = sys.argv[8]
 
 	start_time = time.time()
 	model = Word2Vec.load_word2vec_format(trained_model, binary=True)
@@ -32,5 +33,8 @@ if __name__ == '__main__':
 	old_videos = VideoIterable(old_vid_file)
 	videos = VideoIterable(vid_file)
 	similarity_matrix = SimilarityMatrix(model, 20)
-	similarity_matrix.run(old_similarity_file, old_doc_vector_file, old_videos, matrix_out, doc_vector_out, videos)
+	if flag == 'batch_run':
+		similarity_matrix.batch_run(matrix_out, doc_vector_out, videos)
+	else:
+		similarity_matrix.run(old_similarity_file, old_doc_vector_file, old_videos, matrix_out, doc_vector_out, videos)
 

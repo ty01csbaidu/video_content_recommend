@@ -45,6 +45,11 @@ class SimilarityMatrix(object):
 		self.save_simialrity(matrix_out)
 		self.save_doc_vector(doc_vector_out)
 
+	def batch_run(self, matrix_out, doc_vector_out, videos):
+		self.compute(None, videos)
+		self.save_simialrity(matrix_out)
+		self.save_doc_vector(doc_vector_out)
+
 	def load_similarity(self, old_similarity_file):
 		"""
 		load old similarity matrix
@@ -137,27 +142,28 @@ class SimilarityMatrix(object):
 			self.s_matrix[new_video.vid] = matrix_row
 
 		#compute similarity between old video and videos
-		for i, old_video in enumerate(old_videos):
-			old_vid = old_video.vid
-			if old_vid in self.doc_vector and old_vid in self.s_matrix:
-				for j, new_video in enumerate(videos):
-					new_vid = new_video.vid
-					desc_score = 1 - cosine(self.doc_vector[old_vid], self.doc_vector[new_vid])
-					title_score = title_similarity.cosin_compute(old_video.name, new_video.name)
-					tag_score = tag_similarity.compute(old_video.tags, new_video.tags)
-					star_score = star_similarity.compute(old_video.stars, new_video.stars)
-					linear_simialarity.set_similarity([desc_score, title_score, tag_score, star_score])
-					s = linear_simialarity.compute()
-					sp = ScorePair(new_vid, s)
-					if len(self.s_matrix[old_vid]) < self.topN:
-						self.s_matrix[old_vid].append(sp)
-					else:
-						heapq.heappushpop(self.s_matrix[old_vid], sp)
-					s_sp = ScorePair(old_vid, s)
-					if len(self.s_matrix[new_vid]) < self.topN:
-						self.s_matrix[new_vid].append(s_sp)
-					else:
-						heapq.heappushpop(self.s_matrix[new_vid], s_sp)
+		if old_videos is not None:
+			for i, old_video in enumerate(old_videos):
+				old_vid = old_video.vid
+				if old_vid in self.doc_vector and old_vid in self.s_matrix:
+					for j, new_video in enumerate(videos):
+						new_vid = new_video.vid
+						desc_score = 1 - cosine(self.doc_vector[old_vid], self.doc_vector[new_vid])
+						title_score = title_similarity.cosin_compute(old_video.name, new_video.name)
+						tag_score = tag_similarity.compute(old_video.tags, new_video.tags)
+						star_score = star_similarity.compute(old_video.stars, new_video.stars)
+						linear_simialarity.set_similarity([desc_score, title_score, tag_score, star_score])
+						s = linear_simialarity.compute()
+						sp = ScorePair(new_vid, s)
+						if len(self.s_matrix[old_vid]) < self.topN:
+							self.s_matrix[old_vid].append(sp)
+						else:
+							heapq.heappushpop(self.s_matrix[old_vid], sp)
+						s_sp = ScorePair(old_vid, s)
+						if len(self.s_matrix[new_vid]) < self.topN:
+							self.s_matrix[new_vid].append(s_sp)
+						else:
+							heapq.heappushpop(self.s_matrix[new_vid], s_sp)
 
 		#compute inner simialrity between videos
 		for i, fir_video in enumerate(videos):

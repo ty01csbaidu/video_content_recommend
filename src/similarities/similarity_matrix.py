@@ -96,7 +96,7 @@ class SimilarityMatrix(object):
 				if len(fields) == 2:
 					vid = fields[0]
 					v_list = fields[1]
-					vector = np.array(list[v_list.strip(',').split(',')])
+					vector = np.array(v_list.strip(',').split(','), dtype=np.float32)
 					self.doc_vector[vid] = vector
 
 	def save_doc_vector(self, doc_vector_out):

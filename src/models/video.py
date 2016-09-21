@@ -13,9 +13,9 @@ import sys
 
 logger = logging.getLogger('models.video')
 
-filtered_set = {
+filtered_set = set([
 	'无', '暂无'
-}
+])
 
 
 class Video(object):
